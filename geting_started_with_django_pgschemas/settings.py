@@ -26,7 +26,45 @@ SECRET_KEY = 'wtm&ikff*@n((#m3+85!y2w-ck^*9z$j=fgzzkmvmmmw9%f+-4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".test.com", "*"]
+
+TENANT_MODEL = "shared_public.Tenant"  # Tenant model
+
+TENANT_DOMAIN_MODEL = "shared_public.Domain"  # Domain
+
+TENANTS = {
+    "public": {
+        "APPS": [
+            "django_pgschemas",
+            "django.contrib.contenttypes",
+            "django.contrib.staticfiles",
+            "django.contrib.auth",
+            "shared_public",
+        ],
+        "TENANT_MODEL": TENANT_MODEL,
+        "DOMAIN_MODEL": TENANT_DOMAIN_MODEL,
+    },
+    "www": {
+        "APPS": [
+            "django.contrib.auth",
+            "django.contrib.sessions",
+            "apps.shared_common.user",
+            "apps.main_apps.main_app"
+        ],
+        "URLCONF": "app_main.urls",
+        "DOMAINS": ["test.com"],
+        "FALLBACK_DOMAINS": ["everyone.test.com"],
+    },
+    "default": {
+        "APPS": [
+            "django.contrib.sessions",
+            "apps.shared_common.user",
+            "apps.tenant_apps.tenant_app"
+        ],
+        "URLCONF": "geting_started_with_django_pgschemas.urls",
+    },
+}
+
 
 
 # Application definition
