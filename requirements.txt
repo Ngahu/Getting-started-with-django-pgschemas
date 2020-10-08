@@ -1,0 +1,9 @@
+Django==2.2.16
+pytz==2020.1
+sqlparse==0.4.1
+
+psycopg2==2.8.4
+
+django-pgschemas
+djangorestframework
+python-decouple
